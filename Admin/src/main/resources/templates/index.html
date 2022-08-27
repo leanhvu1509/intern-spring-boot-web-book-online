@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+
+<head th:replace = "fragments :: header">
+</head>
+
+<body class="fixed-navbar">
+    <div class="page-wrapper">
+        <!-- START HEADER-->
+        <header th:replace = "fragments :: top-bar">
+        </header>
+        <!-- END HEADER-->
+        <!-- START SIDEBAR-->
+        <nav th:replace = "fragments :: side-bar">
+        </nav>
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+           	 <div class="page-content fade-in-up">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="ibox bg-success color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong">[[${orderCount}?${orderCount}:'0']]</h2>
+                                <div class="m-b-5">Đơn hàng</div><i class="ti-shopping-cart widget-stat-icon"></i>
+                                <!-- <div><i class="fa fa-level-up m-r-5"></i><small>25% higher</small></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="ibox bg-info color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong">[[${productCount}?${productCount}:'0']]</h2>
+                                <div class="m-b-5">Sản phẩm</div><i class="ti-bar-chart widget-stat-icon"></i>
+                                <!-- <div><i class="fa fa-level-up m-r-5"></i><small>17% higher</small></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="ibox bg-danger color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong">[[${customerCount}?${customerCount}:'0']]</h2>
+                                <div class="m-b-5">Khách hàng</div><i class="ti-user widget-stat-icon"></i>
+                                <!-- <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [[${#numbers.formatDecimal(total,3,'POINT',0,'COMMA')}?${#numbers.formatDecimal(total,3,'POINT',0,'COMMA')}:'0']] -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="ibox bg-warning color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong">[[${#numbers.formatDecimal(total,3,'POINT',0,'COMMA')}?${#numbers.formatDecimal(total,3,'POINT',0,'COMMA')}:'0']]</h2>
+                                <div class="m-b-5">Tổng doanh thu</div><i class="fa fa-money widget-stat-icon"></i>
+                                <!-- <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="ibox">
+                            <div class="ibox-head">
+                                <div class="ibox-title">Đơn hàng chưa xử lý ([[${size}]])</div>
+                            </div>
+                            <div class="ibox-body">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Khách hàng</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Tình trạng</th>
+                                            <th width="91px">Ngày tạo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="order : ${orders}">
+                                            <td>
+                                                <a href="invoice.html">[[${order.id}]]</a>
+                                            </td>
+                                            <td>[[${order.customer.name}]]</td>
+                                            <td>[[${#numbers.formatDecimal(order.totalPrice,3,'POINT',0,'COMMA')}]]</td>
+                                            <td>
+                                                <span class="badge badge-primary" th:text=${order.status.name}></span>
+                                            </td>
+                                            <td th:text=${order.orderDate}></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="ibox">
+                            <div class="ibox-head">
+                                <div class="ibox-title">Top Sản phẩm bán chạy</div>
+                            </div>
+                            <div class="ibox-body">
+                                <ul class="media-list media-list-divider m-0">
+                                    <li class="media" th:each="top : ${tops}">
+                                        <a class="media-img" href="javascript:;">
+                                            <img th:src = "*{'data:image/jpeg;base64,' + {top.image}}" width="50px;" />
+                                        </a>
+                                        <div class="media-body">
+                                            <div class="media-heading">
+                                                <a th:href="@{/product/{id}(id = ${top.id})}">[[${top.name}]]</a>    
+                                            </div>
+                                            <div class="font-13">[[${top.category.name}]]</div>
+                                            <span class="font-16 float-right">[[${#numbers.formatDecimal(top.price,3,'POINT',0,'COMMA')}]]</span>
+                                        </div>
+                                    </li>
+                                  
+                                </ul>
+                            </div>
+                            <div class="ibox-footer text-center">
+                                <a th:href="@{/product}">Xem tất cả sản phẩm</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                	<div class="col-lg-8">
+                	
+                	</div>
+                </div>
+                <style>
+                    .visitors-table tbody tr td:last-child {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .visitors-table .progress {
+                        flex: 1;
+                    }
+
+                    .visitors-table .progress-parcent {
+                        text-align: right;
+                        margin-left: 10px;
+                    }
+                </style>
+            </div>
+            <!-- END PAGE CONTENT-->
+            <footer th:replace = "fragments :: footer">
+            </footer>
+        </div>
+    </div>
+    <!-- CORE PLUGINS-->
+    <div th:replace = "fragments :: script">
+	</div>
+    <script type="text/javascript">
+        $(function() {
+            $('#summernote').summernote();
+            $('#summernote_air').summernote({
+                airMode: true
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head th:replace = "fragments :: head">
+   </head>
+   <body style="" cz-shortcut-listen="true">
+      <div class="loader_overlay"></div>
+      <div id="opacity" class=""></div>
+      <div id="fb-root"></div>
+      <div class="wrapper">
+        <!-- HEADER -->
+         <div class="header" th:replace = "fragments :: header">
+         </div>
+         <!-- END HEADER -->
+         <!-- SLIDESHOW -->
+         <div class="slideshow" th:replace = "fragments :: slide">
+         </div>
+         <!-- END SLIDESHOW -->
+         <!-- ADV -->
+         <div class="adv" th:replace = "fragments :: adv">
+         </div>
+         <!-- END ADV -->
+         <!-- Main -->
+         <div class="main">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-3">
+                     <!-- Blog sidebar -->
+                     <div class="box-sale-policy ng-scope" ng-controller="moduleController" ng-init="initSalePolicyController('Shop')">
+                        <h3><span>Chính sách bán hàng</span></h3>
+                        <div class="sale-policy-block">
+                            <ul>
+                                <li>Giao hàng TOÀN QUỐC</li>
+                                <li>Thanh toán khi nhận hàng</li>
+                                <li>Đổi trả trong <span>15 ngày</span></li>
+                                <li>Hoàn ngay tiền mặt</li>
+                                <li>Chất lượng đảm bảo</li>
+                                <li>Miễn phí vận chuyển:<span>Đơn hàng từ 3 món trở lên</span></li>
+                            </ul>
+                        </div>
+                        <div class="buy-guide">
+                            <h3>Hướng Dẫn Mua Hàng</h3>
+                            <ul>
+                                <li>
+                                    Mua hàng trực tiếp tại website
+                                    <b class="ng-binding"> http://www.nhasachyduochue.vn</b>
+                                </li>
+                                <li>
+                                    Gọi điện thoại <strong class="ng-binding">
+                                        077 2455 xxx
+                                    </strong> để mua hàng
+                                </li>
+                                <li>
+                                    Mua tại Trung tâm CSKH:<br>
+                                    <strong class="ng-binding">Ở đâu còn lâu mới nói</strong>
+                                    <a href="/ban-do.html" rel="nofollow" target="_blank">Xem Bản Đồ</a>
+                                </li>
+                                <li>
+                                    Mua sỉ/buôn xin gọi <strong class="ng-binding">
+                                        0908 xx xx xx
+                                    </strong> để được
+                                    hỗ trợ.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>  
+                
+                     <!-- End blog sidebar -->
+                  </div>
+                  <div class="col-md-9">
+                    <!-- PRODUCT HOT -->
+                     <div class="product_home">
+                        <!-- <div class="product_home_image">
+                           <a href="san-pham/tom-33806.html">
+                              <img src="Uploads/shop2005/images/slide/image-product-home-1.jpg" alt="T&#244;m">
+                              <div class="figcaption"></div>
+                           </a>
+                        </div> -->
+                        <div class="clearfix">
+                           <div class="section-heading">
+                              <h2 title="Sản phẩm">
+                                 <span>Sản phẩm</span>
+                              </h2>
+                           </div>
+                        </div>
+                        <div class="clearfix">
+                           <div class="product-list">
+                              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 product-wrapper zoomIn wow">
+                                 <div class="product-block product-resize">
+                                    <div class="product-image image-resize">
+                                       <div class="sold-out">Hot</div>
+                                       <a href="san-pham/coi-so-diep.html">
+                                       <img class="first-img" src="Uploads/shop2005/images/product/coi-so-diep-1_master.jpg" alt="Cồi s&#242; điệp">
+                                       </a>
+                                       <div class="product-actions hidden-xs">
+                                          <div class="btn-add-to-cart" onclick="AddToCard(46444,1)">
+                                             <a href="javascript:void(0);"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                          </div>
+                                          <div class="btn_quickview">
+                                             <a class="quickview" href="san-pham/%20coi-so-diep.html"><i class="fa fa-eye"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="product-info text-center m-t-xxs-20">
+                                       <h3 class="pro-name">
+                                          <a href="san-pham/coi-so-diep.html" title="Cồi s&#242; điệp">Cồi s&#242; điệp</a>
+                                       </h3>
+                                       <div class="pro-prices">
+                                          <span class="pro-price">160.000&nbsp;₫</span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 product-wrapper zoomIn wow">
+                                 <div class="product-block product-resize">
+                                    <div class="product-image image-resize">
+                                       <div class="sold-out">Hot</div>
+                                       <a href="san-pham/hau-sua.html">
+                                       <img class="first-img" src="Uploads/shop2005/images/product/hau-sua-1_master.jpg" alt="H&#224;u sữa">
+                                       </a>
+                                       <div class="product-actions hidden-xs">
+                                          <div class="btn-add-to-cart" onclick="AddToCard(46475,1)">
+                                             <a href="javascript:void(0);"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                          </div>
+                                          <div class="btn_quickview">
+                                             <a class="quickview" href="san-pham/%20hau-sua.html"><i class="fa fa-eye"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="product-info text-center m-t-xxs-20">
+                                       <h3 class="pro-name">
+                                          <a href="san-pham/hau-sua.html" title="H&#224;u sữa">H&#224;u sữa</a>
+                                       </h3>
+                                       <div class="pro-prices">
+                                          <span class="pro-price">120.000&nbsp;₫</span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 product-wrapper zoomIn wow">
+                                 <div class="product-block product-resize">
+                                    <div class="product-image image-resize">
+                                       <div class="sold-out">Hot</div>
+                                       <a href="san-pham/ngao-2-coi.html">
+                                       <img class="first-img" src="Uploads/shop2005/images/product/ngao-2-coi-1_master.jpg" alt="Ngao 2 cồi">
+                                       </a>
+                                       <div class="product-actions hidden-xs">
+                                          <div class="btn-add-to-cart" onclick="AddToCard(46476,1)">
+                                             <a href="javascript:void(0);"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                          </div>
+                                          <div class="btn_quickview">
+                                             <a class="quickview" href="san-pham/%20ngao-2-coi.html"><i class="fa fa-eye"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="product-info text-center m-t-xxs-20">
+                                       <h3 class="pro-name">
+                                          <a href="san-pham/ngao-2-coi.html" title="Ngao 2 cồi">Ngao 2 cồi</a>
+                                       </h3>
+                                       <div class="pro-prices">
+                                          <span class="pro-price">190.000&nbsp;₫</span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 product-wrapper zoomIn wow">
+                                 <div class="product-block product-resize">
+                                    <div class="product-image image-resize">
+                                       <div class="sold-out">Hot</div>
+                                       <a href="san-pham/oc-mong-tay.html">
+                                       <img class="first-img" src="Uploads/shop2005/images/product/oc-mong-tay-1_master.jpg" alt="Ốc m&#243;ng tay">
+                                       </a>
+                                       <div class="product-actions hidden-xs">
+                                          <div class="btn-add-to-cart" onclick="AddToCard(46477,1)">
+                                             <a href="javascript:void(0);"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                          </div>
+                                          <div class="btn_quickview">
+                                             <a class="quickview" href="san-pham/%20oc-mong-tay.html"><i class="fa fa-eye"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="product-info text-center m-t-xxs-20">
+                                       <h3 class="pro-name">
+                                          <a href="san-pham/oc-mong-tay.html" title="Ốc m&#243;ng tay">Ốc m&#243;ng tay</a>
+                                       </h3>
+                                       <div class="pro-prices">
+                                          <span class="pro-price">370.000&nbsp;₫</span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="show_more">
+                           Mời bạn <a href="san-pham/tom-33806.html">Xem thêm các sản phẩm T&#244;m</a> khác
+                        </div>
+                     </div>
+                     <!-- END PRODUCT HOT -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- End Main -->
+         <!-- FOOTER -->
+         <div class="footer" th:replace = "fragments :: footer">
+         </div>
+         <!-- END FOOTER -->
+      </div>
+      <!-- Loader -->
+      <div style="display: none;" id="loading-mask" th:replace = "fragments :: loader">
+      </div>
+      <!-- End loader -->
+      <a href="javascript:void(0);" class="back-to-top"><span>Top</span></a>
+   </body>
+   <script type="text/javascript">
+    $(".header-content").css({ "background": '' });
+    $("html").addClass('');
+ </script>
+</html>

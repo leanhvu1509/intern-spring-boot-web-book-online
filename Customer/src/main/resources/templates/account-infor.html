@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head th:replace = "fragments :: head">
+   </head>
+   <body>
+        <!-- HEADER -->
+         <div class="header" th:replace = "fragments :: header">
+         </div>
+         <!-- END HEADER -->
+        
+         <!-- Main -->
+         <div class="main">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-3">
+                     <div class="menu-account" th:replace = "fragments :: account">
+                     </div>
+                  </div>
+                  <div class="col-md-9">
+                     <div class="breadcrumb clearfix" th:replace = "fragments :: breadcrumb">
+                     </div>
+
+                     <div class="register-content clearfix">
+                        <h1 class="title"><span th:text="${title}"></span></h1>
+                  
+                        <div class="alert alert-success fade in" th:if="${success}">
+                           <button data-dismiss="alert" class="close"></button>
+                           <i class="fa-fw fa fa-check"></i>
+                           <strong></strong> [[${success}]]
+                        </div>
+                      	<div class="alert alert-danger fade in" th:if="${error}">
+                           <button data-dismiss="alert" class="close"></button>
+                           <i class="fa-fw fa fa-check"></i>
+                           <strong></strong> [[${error}]]
+                        </div>
+                        <div class="col-md-8 col-md-offset-2 col-xs-12 col-sm-12 col-xs-offset-0 col-sm-offset-0">
+                           <form class="form-horizontal" th:object="${customer}" th:action="@{/account/update-infor}" method="put" >
+                              <h2><span>Thông tin cá nhân</span></h2>
+                              <div class="form-group">
+                                 <label for="Name" class="col-sm-3 control-label">Họ tên</label>
+                                 <div class="col-sm-9">
+                                    <input type="text" class="form-control" th:field = "*{name}" />
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="Name" class="col-sm-3 control-label">Email</label>
+                                 <div class="col-sm-9">
+                                    <input type="text" class="form-control" th:field = "*{username}" readonly="readonly"/>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="Name" class="col-sm-3 control-label">SĐT</label>
+                                 <div class="col-sm-9">
+                                    <input type="text" class="form-control" th:field = "*{phone}" required="required"/>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="Name" class="col-sm-3 control-label">Địa chỉ</label>
+                                 <div class="col-sm-9">
+                                    <input type="text" class="form-control" minlength="4"   th:field = "*{address}" required="true" />
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <div class="col-sm-offset-4 col-sm-8">
+                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--End Main  -->
+         
+         <!-- ADV -->
+         <div class="adv" th:replace = "fragments :: adv"> 
+         </div>
+         <!-- END ADV -->
+         <!-- FOOTER -->
+         <div class="footer" th:replace = "fragments :: footer">
+         </div>
+         <!-- END FOOTER -->
+      </div>
+      <!-- Loader -->
+      <div style="display: none;" id="loading-mask" th:replace = "fragments :: loader">
+      </div>
+      <!-- End loader -->
+      <a href="javascript:void(0);" class="back-to-top"><span>Top</span></a>
+   </body>  
+   <script type="text/javascript">
+    $(".header-content").css({ "background": '' });
+    $("html").addClass('');
+    $(".menu-quick-select ul").hide();
+    $(".menu-quick-select").hover(function () { $(".menu-quick-select ul").show(); }, function () { $(".menu-quick-select ul").hide(); });
+ </script>
+</html>

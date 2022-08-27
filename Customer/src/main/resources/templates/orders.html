@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head th:replace = "fragments :: head">
+   </head>
+   <body>
+
+      <div class="wrapper">
+        <!-- HEADER -->
+         <div class="header" th:replace = "fragments :: header">
+         </div>
+         <!-- END HEADER -->
+        
+         <!-- Main -->
+         <div class="main">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-3">
+                     <div class="menu-account" th:replace="fragments ::account">
+                     
+                     </div>
+                  </div>
+                  <div class="col-md-9">
+                     <div class="breadcrumb clearfix">
+                        <ul>
+                           <li itemtype="http://shema.org/Breadcrumb" itemscope="" class="home">
+                              <a title="Đến trang chủ" href="index.html" itemprop="url"><span itemprop="title">Trang chủ</span></a>
+                           </li>
+                           <li class="icon-li"><strong>Đơn hàng của tôi</strong> </li>
+                        </ul>
+                     </div>
+                     <script type="text/javascript">
+                        $(".link-site-more").hover(function () { $(this).find(".s-c-n").show(); }, function () { $(this).find(".s-c-n").hide(); });
+                     </script>
+                     <div class="register-content clearfix">
+                        <h1 class="title"><span>Đơn hàng</span></h1>
+						<!--  
+                        <div class="alert alert-danger fade in">
+                           <button data-dismiss="alert" class="close"></button>
+                           <i class="fa-fw fa fa-times"></i>
+                           <strong>Error!</strong>
+                           <span ng-bind-html="Message"></span>
+                        </div>-->
+                            <table class="table product-list">
+                                <thead>
+                                   <tr>
+                                   		<th>Id đơn hàng</th>
+                                      	<th>Ngày đặt</th>
+                                      	<th>Trạng thái</th>
+                                      	<th>Tổng tiền</th>
+                                      	<th>Action</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                   <tr th:each="order : ${orders}">
+                                   		<td><span th:text="${order.id}"></span></td>
+                                      	<td>
+                                         	<span th:text="${order.orderDate}"></span>
+                                      	</td>
+                                      	<td class="">
+                                      		<span class="badge" th:text=${order.status.name}></span>
+                                      	</td>
+                                      	<td class="amount">
+                                        	<span th:text="${#numbers.formatDecimal(order.totalPrice,3,'POINT',0,'COMMA')}+'&nbsp;₫'"></span>
+                                      	</td>
+                                      	<td class="">
+                                        	<a th:onclick="'javascript:viewOrder(\'' + ${order.id} +'\');'">
+                                            	<i class="glyphicon glyphicon-eye-open"></i>
+                                        	</a>
+                                        	<span style="padding-left: 10px;padding-right: 10px;">|</span>
+                                         	<a>
+                                            	<i class="glyphicon glyphicon-trash"></i>
+                                         	</a>
+                                      	</td>
+                                   </tr>
+                                </tbody>
+                             </table>
+                     </div>
+                     <div id="detailHolder"></div>
+                    <!-- Modal Add -->
+                    <div class="modal fade" th:fragment="view" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="detailModalLabel">Chi tiết đơn hàng</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <table class="table table-striped table-hover" >
+		                            <thead>
+		                                <tr>
+		                                    <th></th>
+		                                    <th>Tên sản phẩm</th>
+		                                    <th class="dt-right">Đơn giá</th>
+		                                   	<th>Số lượng</th>
+		                                   	<th>Thành tiền</th>
+		                                </tr>
+		                            </thead>
+		                            <tbody>
+		                                <tr th:each="detail : ${details}">
+		                        			<td><img src="" style="height: 40px; width: 40px;" th:src = "*{'data:image/jpeg;base64,' + {detail.product.image}}"></td>
+		                                    <td th:text="${detail.product.name}"></td>
+		                                    <td th:text="${detail.product.price}"></td>
+		                                    <td th:text="${detail.quantity}"></td>
+		                                    <td th:text="${detail.totalPrice}"></td>
+		                                </tr>
+		                            </tbody>
+		                        </table>
+                                </div>
+                                   <div class="modal-footer">
+							        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+							      </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End modal -->
+
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--End Main  -->
+         
+         <!-- FOOTER -->
+         <div class="footer" th:replace = "fragments :: footer">
+         </div>
+         <!-- END FOOTER -->
+      </div>
+      <!-- Loader -->
+      <div style="display: none;" id="loading-mask" th:replace = "fragments :: loader">
+      </div>
+      <!-- End loader -->
+      <a href="javascript:void(0);" class="back-to-top"><span>Top</span></a>
+   </body>  
+   <script type="text/javascript">
+    $(".header-content").css({ "background": '' });
+    $("html").addClass('');
+    $(".menu-quick-select ul").hide();
+    $(".menu-quick-select").hover(function () { $(".menu-quick-select ul").show(); }, function () { $(".menu-quick-select ul").hide(); });
+ </script>
+</html>

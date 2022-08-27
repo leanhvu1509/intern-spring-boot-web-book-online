@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head th:replace = "fragments :: head">
+   </head>
+   <body>
+
+      <div class="wrapper">
+        <!-- HEADER -->
+         <div class="header" th:replace = "fragments :: header">
+         </div>
+         <!-- END HEADER -->
+        
+         <!-- Main -->
+         <div class="main">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-3">
+                     <div class="menu-account" th:replace="fragments ::account">
+                     
+                     </div>
+                  </div>
+                  <div class="col-md-9">
+                     <div class="breadcrumb clearfix">
+                        <ul>
+                           <li itemtype="http://shema.org/Breadcrumb" itemscope="" class="home">
+                              <a title="Đến trang chủ" href="index.html" itemprop="url"><span itemprop="title">Trang chủ</span></a>
+                           </li>
+                           <li class="icon-li"><strong>Đánh giá của tôi</strong> </li>
+                        </ul>
+                     </div>
+                     <script type="text/javascript">
+                        $(".link-site-more").hover(function () { $(this).find(".s-c-n").show(); }, function () { $(this).find(".s-c-n").hide(); });
+                     </script>
+                     <div class="register-content clearfix">
+                        <h1 class="title"><span>Đánh giá</span></h1>
+						<!--  
+                        <div class="alert alert-danger fade in">
+                           <button data-dismiss="alert" class="close"></button>
+                           <i class="fa-fw fa fa-times"></i>
+                           <strong>Error!</strong>
+                           <span ng-bind-html="Message"></span>
+                        </div>-->
+                            <table class="table product-list">
+                                <thead>
+                                   <tr>
+                                   		<th>Idg</th>
+                                      	<th>Ngày gửi</th>
+                                      	<th>Điểm</th>
+                                      	<th>Comment</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                   <tr th:each="review : ${reviews}">
+                                   		<td><span th:text="${review.id}"></span></td>
+                                      	<td>
+                                         	<span th:text="${review.datePost}"></span>
+                                      	</td>
+                                      	<td class="">
+                                      		<span class="badge" th:text="${review.number}"></span>
+                                      	</td>
+                                      	<td class="amount">
+                                        	<span th:text="${review.comment}"></span>
+                                      	</td>
+                              
+                                   </tr>
+                                </tbody>
+                             </table>
+                     </div>
+        
+
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--End Main  -->
+         
+         <!-- FOOTER -->
+         <div class="footer" th:replace = "fragments :: footer">
+         </div>
+         <!-- END FOOTER -->
+      </div>
+      <!-- Loader -->
+      <div style="display: none;" id="loading-mask" th:replace = "fragments :: loader">
+      </div>
+      <!-- End loader -->
+      <a href="javascript:void(0);" class="back-to-top"><span>Top</span></a>
+   </body>  
+   <script type="text/javascript">
+    $(".header-content").css({ "background": '' });
+    $("html").addClass('');
+    $(".menu-quick-select ul").hide();
+    $(".menu-quick-select").hover(function () { $(".menu-quick-select ul").show(); }, function () { $(".menu-quick-select ul").hide(); });
+ </script>
+</html>

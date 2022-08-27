@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head th:replace = "fragments :: head">
+   </head>
+   <body>
+      <div class="loader_overlay"></div>
+      <div id="opacity" class=""></div>
+      <div id="fb-root"></div>
+      <div class="wrapper">
+        <!-- HEADER -->
+         <div class="header" th:replace = "fragments :: header">
+         </div>
+         <!-- END HEADER -->
+         <!-- SLIDESHOW -->
+         <div class="slideshow" th:replace = "fragments :: slide">
+         </div>
+         <!-- END SLIDESHOW -->
+
+         <!-- Main -->
+         <div class="main">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-3">
+                     <!-- Blog sidebar -->
+                     <div class="box-sale-policy ng-scope">
+                        <h3><span>Chính sách bán hàng</span></h3>
+                        <div class="sale-policy-block">
+                            <ul>
+                                <li>Giao hàng TOÀN QUỐC</li>
+                                <li>Thanh toán khi nhận hàng</li>
+                                <li>Đổi trả trong <span>15 ngày</span></li>
+                                <li>Hoàn ngay tiền mặt</li>
+                                <li>Chất lượng đảm bảo</li>
+                                <li>Miễn phí vận chuyển:<span>Đơn hàng từ 3 món trở lên</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- End blog sidebar -->
+                  </div>
+                  <div class="col-md-9">
+                    <!-- PRODUCT HOT -->
+                     <div class="product_home">
+                        <!-- <div class="product_home_image">
+                           <a href="san-pham/tom-33806.html">
+                              <img src="Uploads/shop2005/images/slide/image-product-home-1.jpg" alt="T&#244;m">
+                              <div class="figcaption"></div>
+                           </a>
+                        </div> -->
+                        <div class="clearfix">
+                           <div class="section-heading">
+                              <h2 title="Sản phẩm">
+                                 <span>Sản phẩm mới nhất</span>
+                              </h2>
+                           </div>
+                        </div>
+                        <div class="clearfix">
+                           <div class="product-list">
+                              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 product-wrapper zoomIn wow" th:each="product : ${products}">
+                                 <div class="product-block product-resize">
+                                    <div class="product-image image-resize">
+                                       <a href="#">
+                                       <img class="first-img" th:src="@{'data:image/jpeg;base64,' + ${product.image}}">
+                                       </a>
+                                       <div class="product-actions hidden-xs">
+                                          <div class="btn-add-to-cart">
+                                             <a th:href="@{/add-to-cart/{id}(id=${product.id})}"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                          </div>
+                                          <div class="btn_quickview">
+                                             <a class="quickview" th:href="@{/product/{id}(id=${product.id})}"><i class="fa fa-eye"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="product-info text-center m-t-xxs-20">
+                                       <h3 class="pro-name">
+                                          <a href="#" th:text="${product.name}"></a>
+                                       </h3>
+                                       <div class="pro-prices">
+                                          <span class="pro-price" th:text="${#numbers.formatDecimal(product.price,3,'POINT',0,'COMMA')}+'&nbsp;₫'"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="show_more">
+                           Mời bạn <a th:href="@{/product}">Xem thêm các sản phẩm</a> khác
+                        </div>
+                     </div>
+                     <!-- END PRODUCT HOT -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- End Main -->
+         <!-- ADV -->
+         <div class="adv" th:replace = "fragments :: adv">
+         </div>
+         <!-- END ADV -->
+         <!-- FOOTER -->
+         <div class="footer" th:replace = "fragments :: footer">
+         </div>
+         <!-- END FOOTER -->
+      </div>
+      <!-- Loader -->
+      <div style="display: none;" id="loading-mask" th:replace = "fragments :: loader">
+      </div>
+      <!-- End loader -->
+      <a href="javascript:void(0);" class="back-to-top"><span>Top</span></a>
+   </body>
+   <script type="text/javascript">
+    $(".header-content").css({ "background": '' });
+    $("html").addClass('');
+ </script>
+</html>

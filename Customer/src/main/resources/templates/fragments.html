@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head th:fragment = "head">
+      <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+      <meta charset="UTF-8" />
+      <title th:text="${title}"></title>
+      <meta name="description" />
+      <meta name="keywords" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta property="fb:app_id" content="227481454296289" />
+      <meta content="vi_VN" property="og:locale" />
+      <meta content="website" property="og:type" />
+      <meta content="Book store" property="og:title" />
+      <meta property="og:description" />
+      <meta content="trang-chu.html" property="og:url" />
+      <meta content="Book Store" property="og:site_name" />
+      <style>
+         .loader_overlay {
+         position: fixed;
+         z-index: 9999;
+         width: 100%;
+         height: 100%;
+         left: 0;
+         top: 0;
+         background-color: #fff;
+         -webkit-transition: all .1s ease;
+         -o-transition: all .1s ease;
+         transition: all .1s ease;
+         opacity: 1;
+         visibility: visible;
+         }
+         .loader_overlay.loaded {
+         opacity: 0;
+         visibility: hidden;
+         z-index: -2;
+         }
+      </style>
+      <!--CSS-->
+      <link rel="stylesheet" th:href="@{/assets/js/bootstrap/css/bootstrap.min.css}">
+      <link rel="stylesheet" th:href="@{/assets/fonts/font-awesome/css/font-awesome.min.css}">
+      <link rel="stylesheet" type="text/css" th:href="@{/assets/fonts/fonts-master/roboto.css}">
+      <!--JS-->
+      <script th:src="@{/assets/js/plugin42e7.js?v=582}"></script>
+      <script th:src="@{/assets/js/option_selection.js}"></script>
+      <script th:src="@{/assets/js/api.jquery.js}"></script>
+      <script th:src="@{/assets/js/jquery.rateyo.min.js}"></script>
+      <script th:src="@{/assets/js/other.js}"></script>
+      <!-- Đặt thẻ này vào phần đầu hoặc ngay trước thẻ đóng phần nội dung của bạn. -->
+      <script th:src="@{/assets/js/platform.js}" async="" defer=""></script>
+      <script async="" defer="defer" data-target=".product-resize" data-parent=".products-resize" data-img-box=".image-resize" th:src="@{/assets/js/fixheightproductv242e7.js?v=582}"></script>
+      <script th:src="@{/assets/js/scripts42e7.js?v=582}"></script>
+      <script th:src="@{/assets/Scripts/common/mycard.js}" type="text/javascript"></script>
+      <script th:src="@{/assets/Scripts/lazyLoad/jquery.lazyload.min.js}" type="text/javascript"></script>
+      <script th:src="@{/assets/Scripts/angularJS/angular.min.js}"></script>
+      <script th:src="@{/assets/Scripts/angularJS/angular-sanitize.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/Scripts/angular-loading-spinner/spin.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/Scripts/angular-loading-spinner/angular-spinner.min.js}"></script>
+      <script type="text/javascript" th:src="@{/assets/Scripts/angular-loading-spinner/angular-loading-spinner.js}"></script>
+      <link rel="stylesheet" type="text/css" th:href="@{/assets/Scripts/jquery.rateyo.min.css}"></link>
+      <link th:href="@{/assets/style.css}" rel="stylesheet" type="text/css" />
+      <link th:href="@{/assets/responsive.css}" rel="stylesheet" type="text/css" />
+   </head>
+   <body>
+        <!-- HEADER -->
+         <div class="header" th:fragment = "header">
+            <!-- Topbar -->
+            <section class="top-link clearfix">
+               <div class="container">
+                   <div class="row">
+                       <div class="col-md-12">
+                           <ul class="nav navbar-nav topmenu-contact pull-left">
+                               <li><i class="fa fa-phone"></i> <span>Hotline: 0772 455 326</span></li>
+                           </ul>
+                               <ul class="nav navbar-nav navbar-right topmenu  hidden-xs hidden-sm" th:if = "${session.username == null}" >
+
+                                   <li class="account-login"><a th:href="@{/login}"><i class="fa fa-sign-in"></i> Đăng nhập </a></li>
+                                   <li class="account-register"><a th:href="@{/register}"><i class="fa fa-key"></i> Đăng ký </a></li>
+                               </ul>
+                               <ul class="nav navbar-nav navbar-right topmenu  hidden-xs hidden-sm" th:if = "${session.username != null}" >
+                                   <li class="order-check"><a th:href="@{/account}"><i class="fa fa-pencil-square-o"></i>Xin chào! <span th:text="${session.username}"></span></a></li>
+                                   <li class="order-check"><a th:href="@{/account/order}"><i class="fa fa-pencil-square-o"></i> Kiểm tra đơn hàng</a></li>
+                                   <li class="order-cart"><a th:href="@{/cart}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                   <li class="order-cart"><a th:href="@{/logout}"> | Đăng xuất</a></li>
+                               </ul>
+                           <div class="show-mobile hidden-lg hidden-md">
+                               <div class="quick-user">
+                                   <div class="quickaccess-toggle">
+                                       <i class="fa fa-user"></i>
+                                   </div>
+                                   <div class="inner-toggle">
+                                           <ul class="login links">
+                                               <li>
+                                                   <a th:href="@{/register}"><i class="fa fa-sign-in"></i> Đăng ký</a>
+                                               </li>
+                                               <li>
+                                                   <a th:href="@{/login}"><i class="fa fa-key"></i> Đăng nhập</a>
+                                               </li>
+                                           </ul>
+                                   </div>
+                               </div>
+                               <div class="quick-access">
+                                   <div class="quickaccess-toggle">
+                                       <i class="fa fa-list"></i>
+                                   </div>
+                                   <div class="inner-toggle">
+                                       <ul class="links">
+                                           <li><a id="mobile-wishlist-total" href="kiem-tra-don-hang.html" class="wishlist"><i class="fa fa-pencil-square-o"></i> Kiểm tra đơn hàng</a></li>
+                                           <li><a href="gio-hang.html" class="shoppingcart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                       </ul>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </section>
+           <!-- End Topbar -->
+           <!-- Header -->
+            <header id="header">
+                <!-- Header main -->
+               <div id="header_main">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8">
+                           <!--logo-->
+                           <h1 class="pull-left">
+                              <a th:href="@{/}" class="logo" title="Book Store">
+                              <img th:src="@{/assets/images/logonew4.jpg}" alt="Book Store">
+                              </a>
+                           </h1>
+                           <!-- end logo -->
+                        </div>
+                        <div class="col-lg-7 col-md-5 col-sm-4 hidden-xs">
+                           <!-- Search -->
+                           <div class="search_box">
+                              <div class="search_wrapper">
+                                 <form action="">
+                                    <input type="text" name="search" class="index_input_search" id="txtsearch" placeholder='Nhập từ khóa tìm kiếm...' />
+                                    <button class="btn_search_submit btn " type="button" id="btnsearch"><span>Tìm ngay</span></button>
+                                 </form>
+                              </div>
+                           </div>
+                           <!-- End Search -->
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                           <!-- Cart -->
+                           <div class="cart_header">
+                              <a th:href="@{/cart}" title="Giỏ hàng">
+                              <span class="cart_header_icon"></span>
+                              <span class="box_text">
+                              <strong class="cart_header_count">Giỏ hàng <span>(<span th:text = "${session.totalItems == null} ? '0' : ${session.totalItems}"></span>)</span></strong>
+                              <span class="cart_price">[[${session.totalPrice == null} ? '0' : ${#numbers.formatDecimal(session.totalPrice,3,'POINT',0,'COMMA')}]]₫</span>
+                              </span>
+                              </a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+             </div>
+               <!-- End header main -->
+               <!-- Header mobile -->
+               <div id="header_mobile">
+                  <div class="container">
+                     <div class="row">
+                        <!-- Menu mobile -->
+                        <button type="button" class="navbar-toggle collapsed" id="trigger_click_mobile">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <div id="mobile_wrap_menu" class="visible-xs visible-sm">
+                           <div class="user_mobile">
+                              <div class="icon_user_mobile">
+                                 <img src="assets/100004/images/user_mobile.png" alt="account">
+                              </div>
+                              <div class="login_mobile">
+                                 <a href="dang-nhap.html" class="login-btn">Đăng nhập </a><a href="dang-ky.html" class="login-btn"> / Đăng ký</a>
+                              </div>
+                              <div class="close_menu"></div>
+                           </div>
+                           <div class="content_menu">
+                              <ul>
+                                 <li class="level0"><a class='' href='trang-chu.html'><span>Trang chủ</span></a></li>
+                                 <li class="level0"><a class='' href='gioi-thieu.html'><span>Giới thiệu</span></a></li>
+                                 <li class="level0"><a class='' href='san-pham.html'><span>Sản phẩm</span></a></li>
+                                 <li class="level0"><a class='' href='tin-tuc.html'><span>Tin tức</span></a></li>
+                                 <li class="level0"><a class='' href='lien-he.html'><span>Liên hệ</span></a></li>
+                              </ul>
+                           </div>
+                        </div>
+                        <!-- End menu mobile -->
+                        <div class="pull-right mobile-menu-icon-wrapper">
+                           <!-- Logo mobile -->
+                           <div class="logo logo-mobile">
+                              <a href="index.html" title="">
+                              <img src="assets/images/logo.png" alt="">
+                              </a>
+                           </div>
+                           <!-- End Logo mobile -->
+                           <!-- Cart mobile -->
+                           <div class="cart_header" id="cart-target">
+                              <a href="gio-hang.html" title="Giỏ hàng">
+                                 <div class="cart_header_icon"></div>
+                                 <div class="box_text">
+                                    <strong class="cart_header_count"><span>0</span></strong>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- End Cart mobile -->
+                        </div>
+                        <div class="clearfix"></div>
+                        <!-- Search mobile -->
+                        <div class="search_mobile col-md-12">
+                           <div class="search_box">
+                              <div class="search_wrapper">
+                                 <input type="text" name="search" class="index_input_search" id="txtsearch2" onblur="if(this.value=='')this.value='Nhập từ khóa tìm kiếm...'"
+                                    onfocus="if(this.value=='Nhập từ khóa tìm kiếm...')this.value=''" value="Nhập từ kh&#243;a t&#236;m kiếm..." />
+                                 <button class="btn_search_submit btn " type="button" id="btnsearch2"><span><i class="fa fa-search"></i></span></button>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- End search mobile -->
+                     </div>
+                  </div>
+               </div>
+               <!-- End header mobile -->
+            </header>
+            <!-- End header -->
+
+            <!-- Nav menu -->
+            <nav class="navbar-main">
+               <div id="mb_mainnav">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-md-3 col-sm-12 col-xs-12 vertical_menu">
+                           <div id="mb_verticle_menu" class="menu-quick-select">
+                              <div class="title_block">
+                                 <span>Danh mục sản phẩm</span>
+                              </div>
+                              <div  id="menuverti" class="block_content navbar_menuvertical">
+                                <ul class='nav_verticalmenu' >
+                                    <li class="level0 has-child" th:each="category : ${categories}">
+                                       <a th:href = "@{/product/category/{id}(id = ${category.id})}">
+                                       	<span style="font-weight: 400;font-size: 16px;" th:text="${category.name}"></span>
+                                       </a>
+                                        	<ul class='level1' th:if="${#lists.size(category.children) > 0}">
+										   		<li class="level1" th:each="menu1 : ${category.children}">
+										   			<a th:href = "@{/product/category/{id}(id = ${menu1.id})}"><span>[[${menu1.name}]]</span></a>
+										   		</li>
+									   		</ul>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                        <nav class="col-md-9 col-sm-12 col-xs-12 p-l-0">
+                           <ul class='menu nav navbar-nav menu_hori'>
+                                <li class="level0"><a class='' th:href="@{/}"><span>Trang chủ</span></a></li>
+                                <li class="level0"><a class='' th:href="@{/product}"><span>Sản phẩm</span></a></li>
+                                <li class="level0"><a class='' href=''><span>Giới thiệu</span></a></li>
+                                <li class="level0"><a class='' href=''><span>Liên hệ</span></a></li>
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+            </nav>
+            <!-- End Nav menu -->
+            <script type="text/javascript">
+               $(document).ready(function () {
+                   var str = location.href.toLowerCase();
+                   $("ul.menu li a").each(function () {
+                       if (str.indexOf(this.href.toLowerCase()) >= 0) {
+                           $("ul.menu li").removeClass("active");
+                           $(this).parent().addClass("active");
+                       }
+                   });
+               });
+            </script>
+         </div>
+         <!-- END HEADER -->
+         
+         <!-- Slide show -->
+         <div class="slideshow" th:fragment = "slide">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-3">
+                  </div>
+                  <div class="col-md-9 ">
+                     <div class="homeslider">
+                        <div id="owl-slider" class="owl-carousel owl-carousel-banner">
+                           <div class="item">
+                              <a href="#"><img th:src="@{/assets/images/slide/so1.jpg}" alt="1"></a>
+                           </div>
+                           <div class="item">
+                              <a href="#"><img th:src="@{/assets/images/slide/so2.jpg}" alt="1"></a>
+                           </div>
+                         
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- END SLIDESHOW -->
+
+         <!-- Account -->
+         <div class="menu-account" th:fragment = "account">
+             <h3>
+             	<span th:if = "${session.username == null}">Tài khoản</span>
+             	<span th:if = "${session.username != null}">Thông tin tài khoản</span>
+             </h3>
+                 <ul th:if = "${session.username == null}">
+                     <li><a th:href="@{/login}"><i class="fa fa-sign-in"></i> Đăng nhập</a></li>
+                     <li><a th:href="@{/register}"><i class="fa fa-key"></i> Đăng ký</a></li>
+                     <li><a th:href="@{/forgot}"><i class="fa fa-key"></i> Quên mật khẩu</a></li>
+                  </ul>
+                  <ul th:if = "${session.username != null}">
+                      <li><a th:href="@{/account}"><i class="fa fa-sign-in"></i> Thông tin</a></li>
+                      <li><a th:href="@{/account/order}"><i class="fa fa-key"></i> Đơn hàng</a></li>
+                      <li><a th:href="@{/account/review}"><i class="fa fa-key"></i> Đánh giá</a></li>
+                      <li><a th:href="@{/logout}"><i class="fa fa-key"></i> Đăng xuất</a></li>
+                  </ul>
+            </div>
+         <!-- End account -->
+         
+         <!-- Bread crumb -->
+                     <div class="breadcrumb clearfix" th:fragment = "breadcrumb">
+                        <ul>
+                           <li class="home">
+                              <a title="Đến trang chủ" th:href="@{/trang-chu}" itemprop="url"><span itemprop="title">Trang chủ</span></a>
+                           </li>
+                           <li class="icon-li"><strong th:text="${title}"></strong></li>
+                        </ul>
+                     </div>
+         <!-- End bread crumb -->
+         
+         <!-- ADV -->
+         <div class="adv" th:fragment = "adv">
+            <section id="service">
+               <div class="container m-b-30">
+                  <div class="row">
+                     <div id="service_home" class="clearfix">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-xxs-12 text-center m-b-xs-10">
+                           <div class="service_item">
+                              <div class="icon icon_product">
+                                 <img th:src="@{/assets/images/icon_142e7.png?v=582}" alt="">
+                              </div>
+                              <div class="description_icon">
+                                 <span class="large-text">
+                                 SHIPCOD toàn quốc
+                                 </span>
+                                 <span class="small-text">
+                                 Giao sách tận nơi 2-4
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-xxs-12 text-center m-b-xs-10">
+                           <div class="service_item">
+                              <div class="icon icon_product">
+                                 <img th:src="@{/assets/images/icon_242e7.png?v=582}" alt="">
+                              </div>
+                              <div class="description_icon">
+                                 <span class="large-text">
+                                 Thanh toán
+                                 </span>
+                                 <span class="small-text">
+                                 Nhận sách mới thanh toán
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center m-b-xs-10">
+                           <div class="service_item">
+                              <div class="icon icon_product">
+                                 <img th:src="@{/assets/images/icon_342e7.png?v=582}" alt="">
+                              </div>
+                              <div class="description_icon">
+                                 <span class="large-text">
+                                 Đảm bảo sách tốt
+                                 </span>
+                                 <span class="small-text">
+                                 Cam kết chất lượng
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <!--Begin-->
+            <!--End-->
+         </div>
+         <!-- END ADV -->
+         
+         <!-- FOOTER -->
+         <div class="footer" th:fragment = "footer">
+            <footer class="footer-content">
+               <div class="footer_bottom">
+                  <div class="container">
+                     <div class="footer_bottom_wrap">
+                        <div class="row">
+                           <div class="col-lg-7">
+                              <div class="footer_address">
+                                 <p><span>Cửa hàng sách Y Khoa Huế</span></p>
+                                 <p><span>Địa chỉ: TP. Huế</span></p>
+                                 <p><span>Số di động: 0908 77 00 95</span></p>
+                                 <p><span>Email: choithugame1x@gmail.vn</span></p>
+                              </div>
+                           </div>
+                           <div class="col-lg-5 text-right text-center-xs">
+                              <div class="copy_right">
+                                 <p>
+                                    &copy; 2022. Copyright. Powered by <a href="">Admin</a>
+                                 </p>
+                              </div>
+                              <div class="social_footer">
+                                 <ul>
+                                    <li><a><span><i class="fa fa-facebook"></i></span></a></li>
+                                    <li><a><span><i class="fa fa-google-plus"></i></span></a></li>
+                                    <li><a><span><i class="fa fa-youtube"></i></span></a></li>
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </footer>
+         </div>
+         <!-- END FOOTER -->
+         
+      <!-- Loader -->
+      <div style="display: none;" id="loading-mask" th:fragment = "loader">
+         <div id="loading_mask_loader" class="loader">
+            <img alt="Loading..." src="assets/images/icons/ajax-loader-main.gif" />
+            <div>
+               Vui lòng chờ...
+            </div>
+         </div>
+      </div>
+      <!-- End loader -->
+      
+      <a href="javascript:void(0);" class="back-to-top"><span>Top</span></a>
+      
+   </body>  
+   <script type="text/javascript">
+    $(".header-content").css({ "background": '' });
+    $("html").addClass('');
+    $(".menu-quick-select ul").hide();
+    $(".menu-quick-select").hover(function () { $(".menu-quick-select ul").show(); }, function () { $(".menu-quick-select ul").hide(); });
+ </script>
+</html>

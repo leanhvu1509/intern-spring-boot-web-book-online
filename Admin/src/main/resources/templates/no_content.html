@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+
+<head th:replace = "fragments :: header">
+</head>
+
+<body class="fixed-navbar">
+    <div class="page-wrapper">
+        <!-- START HEADER-->
+        <header th:replace = "fragments :: top-bar">
+        </header>
+        <!-- END HEADER-->
+        <!-- START SIDEBAR-->
+        <nav th:replace = "fragments :: side-bar">
+        </nav>
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+           	<div class="page-content fade-in-up">
+           	
+           	</div>
+            <!-- END PAGE CONTENT-->
+            <footer th:replace = "fragments :: footer">
+            </footer>
+        </div>
+    </div>
+
+    <!-- BEGIN PAGA BACKDROPS-->
+    <div class="sidenav-backdrop backdrop"></div>
+    <div class="preloader-backdrop">
+        <div class="page-preloader">Loading</div>
+    </div>
+    <!-- END PAGA BACKDROPS-->
+    <!-- CORE PLUGINS-->
+    <div th:replace = "fragments :: script">
+	</div>
+    <script type="text/javascript">
+        $(function() {
+            $('#summernote').summernote();
+            $('#summernote_air').summernote({
+                airMode: true
+            });
+        });
+    </script>
+</body>
+
+</html>
