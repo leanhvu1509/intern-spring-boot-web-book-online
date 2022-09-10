@@ -1,12 +1,5 @@
 $(document).ready(function(){
 
-    // Select 2
-    $(".select2_demo_1").select2();
-    $(".select2_demo_2").select2({
-        placeholder: "Vui lòng chọn ...",
-        allowClear: true       
-    });
-
     // Bootstrap datepicker
     $('#date_1 .input-group.date').datepicker({
         todayBtn: "linked",

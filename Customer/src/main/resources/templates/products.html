@@ -18,9 +18,49 @@
             <div class="main">
                <div class="container">
                   <div class="row">
-                     <div class="col-md-9">
                         <div class="breadcrumb clearfix" th:replace = "fragments :: breadcrumb">
                         </div>
+                      <div class="col-md-3">
+						<div class="menu-product">
+						   <h3>
+						      <span>
+						      	Danh mục
+						      </span>
+						   </h3>
+						   	<ul class='level0'>
+						   		<li class="child" th:each="category : ${categories}">
+						      	<span><a  th:href = "@{/product/category/{id}(id = ${category.id})}"><i class='fa fa-arrow-circle-right'></i>[[${category.name}]]</a></span><span class='open-close'><i class='fa fa-angle-down'></i></span>
+						      		<ul class='level1 hidden-xs' th:if="${#lists.size(category.children) > 0}">
+									   <li th:each="menu1 : ${category.children}">
+									   	<span><a th:href = "@{/product/category/{id}(id = ${menu1.id})}"><i class='fa fa-check'></i> [[${menu1.name}]]</a></span>
+									   </li>
+						   			</ul>
+						   		</li>
+						   </ul>
+						</div>
+						<script type="text/javascript">
+						   $(document).ready(function () {
+						       $('.menu-product li.child .open-close').on('click', function () {
+						           $(this).removeAttr('href');
+						           var element = $(this).parent('li');
+						           if (element.hasClass('open')) {
+						               element.removeClass('open');
+						               element.children('ul').slideUp();
+						           }
+						           else {
+						               element.addClass('open');
+						               element.children('ul').slideDown();
+						           }
+						       });
+						   });
+						</script> 
+                    </div>                 
+                     <div class="col-md-9">
+ 							<h3>
+						      <span>
+						      	[[${title}]]
+						      </span>
+						   </h3>
                         <script type="text/javascript">
                            $(".link-site-more").hover(function () { $(this).find(".s-c-n").show(); }, function () { $(this).find(".s-c-n").hide(); });
                         </script>
@@ -48,9 +88,10 @@
                            </div>
                            <div class="product_list grid clearfix">
                               <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 product-wrapper zoomIn wow" th:each="product : ${products}">
-                                 <div class="product-block product-resize m-b-20">
+                                 <div class="product-block product-resize">
                                     <div class="product-image image-resize">
-                                       <a th:href="@{/product/{id}(id = ${product.id})}">
+                                    <div class="sold-out">-[[${product.discount}]]%</div>
+                                       <a th:href="@{/product/{id}(id=${product.id})}">
                                        <img class="first-img" th:src="@{'data:image/jpeg;base64,' + ${product.image}}">
                                        </a>
                                        <div class="product-actions hidden-xs">
@@ -58,16 +99,18 @@
                                              <a th:href="@{/add-to-cart/{id}(id=${product.id})}"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
                                           </div>
                                           <div class="btn_quickview">
-                                             <a class="quickview" href=""><i class="fa fa-eye"></i></a>
+                                             <a class="quickview" th:href="@{/product/{id}(id=${product.id})}"><i class="fa fa-eye"></i></a>
                                           </div>
                                        </div>
                                     </div>
                                     <div class="product-info text-center m-t-xxs-20">
                                        <h3 class="pro-name">
-                                          <a th:href="@{/product/{id}(id = ${product.id})} " th:text="${product.name}"></a>
+                                          <a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}"></a>
                                        </h3>
                                        <div class="pro-prices">
-                                         <span class="pro-price" th:text="${#numbers.formatDecimal(product.price,3,'POINT',0,'COMMA')}+'&nbsp;₫'"></span>
+                                          <span class="pro-price" th:text="${#numbers.formatDecimal(product.price-product.price*product.discount/100,3,'POINT',0,'COMMA')}+'&nbsp;₫'"></span>
+                                          <br><span class="pro-price" style="text-decoration: line-through;font-style: italic;font-size:12px;" 
+                                          		th:text="${#numbers.formatDecimal(product.price,3,'POINT',0,'COMMA')}+'đ'"></span>
                                        </div>
                                     </div>
                                  </div>
@@ -95,22 +138,7 @@
                            </div>
                         </div>
                      </div>
-                     <div class="col-md-3">
-                        <div class="box-sale-policy ng-scope">
-                            <h3><span>Chính sách bán hàng</span></h3>
-                            <div class="sale-policy-block">
-                                <ul>
-                                    <li>Giao hàng TOÀN QUỐC</li>
-                                    <li>Thanh toán khi nhận hàng</li>
-                                    <li>Đổi trả trong <span>15 ngày</span></li>
-                                    <li>Hoàn ngay tiền mặt</li>
-                                    <li>Chất lượng đảm bảo</li>
-                                    <li>Miễn phí vận chuyển:<span>Đơn hàng từ 3 món trở lên</span></li>
-                                </ul>
-                            </div>
-         
-                        </div>  
-                    </div>
+
                      </div>
                   </div>
                </div>
@@ -132,7 +160,7 @@
       <!-- End loader -->
       <a href="javascript:void(0);" class="back-to-top"><span>Top</span></a>
    </body>  
-   <script type="text/javascript">
+  <script type="text/javascript">
     $(".header-content").css({ "background": '' });
     $("html").addClass('');
     $(".menu-quick-select ul").hide();

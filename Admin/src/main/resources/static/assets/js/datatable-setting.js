@@ -16,10 +16,31 @@ $(function() {
 		      "className": "text-center",
 		   },
 		   {
-		      "targets": 4,
+		      "targets": 6,
 		      "className": "text-right",
 		   },
 	    ],
+	    order: [[0, 'desc']],
+		language: {
+        	url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Vietnamese.json'
+    	}
+    });
+})
+
+$(function() {
+    $('#category-table').DataTable({
+        pageLength: 10,
+		order: [[0, 'desc']],
+		language: {
+        	url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Vietnamese.json'
+    	}
+    });
+})
+
+$(function() {
+    $('#product-table').DataTable({
+        pageLength: 10,
+		order: [[5, 'desc']],
 		language: {
         	url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Vietnamese.json'
     	}

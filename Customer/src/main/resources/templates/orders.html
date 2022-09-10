@@ -23,7 +23,7 @@
                   <div class="col-md-9">
                      <div class="breadcrumb clearfix">
                         <ul>
-                           <li itemtype="http://shema.org/Breadcrumb" itemscope="" class="home">
+                           <li class="home">
                               <a title="Đến trang chủ" href="index.html" itemprop="url"><span itemprop="title">Trang chủ</span></a>
                            </li>
                            <li class="icon-li"><strong>Đơn hàng của tôi</strong> </li>
@@ -68,7 +68,16 @@
                                             	<i class="glyphicon glyphicon-eye-open"></i>
                                         	</a>
                                         	<span style="padding-left: 10px;padding-right: 10px;">|</span>
-                                         	<a>
+                                         	<a th:if="${order.status.name() == 'CANCEL'}">
+                                            	<i class="glyphicon glyphicon-ban-circle"></i>
+                                         	</a>
+                                         	<a th:if="${order.status.name() == 'DELIVERED'}">
+                                            	<i class="glyphicon glyphicon-ban-circle"></i>
+                                         	</a>
+                                         	<a onclick="return confirm('Bạn có chắc muốn xóa không?')" th:if="${order.status.name() == 'ACCEPT'}" th:href="@{/account/order/delete/{id}(id = ${order.id})}">
+                                            	<i class="glyphicon glyphicon-trash"></i>
+                                         	</a>
+                                         	<a onclick="return confirm('Bạn có chắc muốn xóa không?')" th:if="${order.status.name() == 'PENDING'}" th:href="@{/account/order/delete/{id}(id = ${order.id})}">
                                             	<i class="glyphicon glyphicon-trash"></i>
                                          	</a>
                                       	</td>
@@ -102,9 +111,9 @@
 		                                <tr th:each="detail : ${details}">
 		                        			<td><img src="" style="height: 40px; width: 40px;" th:src = "*{'data:image/jpeg;base64,' + {detail.product.image}}"></td>
 		                                    <td th:text="${detail.product.name}"></td>
-		                                    <td th:text="${detail.product.price}"></td>
+		                                    <td th:text="${#numbers.formatDecimal(detail.unitPrice,3,'POINT',0,'COMMA')}"></td>
 		                                    <td th:text="${detail.quantity}"></td>
-		                                    <td th:text="${detail.totalPrice}"></td>
+		                                    <td th:text="${#numbers.formatDecimal(detail.totalPrice,3,'POINT',0,'COMMA')}"></td>
 		                                </tr>
 		                            </tbody>
 		                        </table>

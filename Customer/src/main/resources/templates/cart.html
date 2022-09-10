@@ -46,7 +46,7 @@
 							                <a class="button-default" id="checkout" th:href="@{/}">Mua hàng</a>
 							        </div>
 							    </div>
-                           <div class="cart-block" th:if="${check == null}">
+                           <div class="cart-block" th:unless="${check}">
                               <div class="cart-info table-responsive">
                                  <table class="table product-list">
                                     <thead>
@@ -69,7 +69,7 @@
                                           <td class="des">
                                              <a th:text="${cartItem.product.name}"></a>
                                           </td>
-                                          <td class="price"><span th:text="${cartItem.product.price}"></span>đ</td>
+                                          <td class="price"><span th:text="${#numbers.formatDecimal(cartItem.unitPrice,3,'POINT',0,'COMMA')}"></span>đ</td>
                                           <form th:action="@{/update-cart}" method="post">
                                           			<input type="hidden" name="id" th:value="${cartItem.product.id}">
 	                                          <td class="quantity">

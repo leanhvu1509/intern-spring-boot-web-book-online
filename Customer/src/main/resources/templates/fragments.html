@@ -135,9 +135,9 @@
                            <!-- Search -->
                            <div class="search_box">
                               <div class="search_wrapper">
-                                 <form action="">
-                                    <input type="text" name="search" class="index_input_search" id="txtsearch" placeholder='Nhập từ khóa tìm kiếm...' />
-                                    <button class="btn_search_submit btn " type="button" id="btnsearch"><span>Tìm ngay</span></button>
+                                 <form th:action="@{/product/search}" method="get">
+                                    <input type="text" name="keyword" class="index_input_search" id="txtsearch" placeholder='Nhập từ khóa tìm kiếm...' />
+                                    <button class="btn_search_submit btn " type="submit" id="btnsearch"><span>Tìm ngay</span></button>
                                  </form>
                               </div>
                            </div>
@@ -173,10 +173,9 @@
                         <div id="mobile_wrap_menu" class="visible-xs visible-sm">
                            <div class="user_mobile">
                               <div class="icon_user_mobile">
-                                 <img src="assets/100004/images/user_mobile.png" alt="account">
                               </div>
                               <div class="login_mobile">
-                                 <a href="dang-nhap.html" class="login-btn">Đăng nhập </a><a href="dang-ky.html" class="login-btn"> / Đăng ký</a>
+                                 <a th:href="@{/login}" class="login-btn">Đăng nhập </a><a th:href="@{/register}" class="login-btn"> / Đăng ký</a>
                               </div>
                               <div class="close_menu"></div>
                            </div>
@@ -184,7 +183,7 @@
                               <ul>
                                  <li class="level0"><a class='' href='trang-chu.html'><span>Trang chủ</span></a></li>
                                  <li class="level0"><a class='' href='gioi-thieu.html'><span>Giới thiệu</span></a></li>
-                                 <li class="level0"><a class='' href='san-pham.html'><span>Sản phẩm</span></a></li>
+                                 <li class="level0"><a class='' th:href="@{/product}"><span>Sản phẩm</span></a></li>
                                  <li class="level0"><a class='' href='tin-tuc.html'><span>Tin tức</span></a></li>
                                  <li class="level0"><a class='' href='lien-he.html'><span>Liên hệ</span></a></li>
                               </ul>
@@ -195,7 +194,7 @@
                            <!-- Logo mobile -->
                            <div class="logo logo-mobile">
                               <a href="index.html" title="">
-                              <img src="assets/images/logo.png" alt="">
+                              <img th:src="@{/assets/images/logonew4.jpg}" alt="">
                               </a>
                            </div>
                            <!-- End Logo mobile -->
@@ -204,7 +203,7 @@
                               <a href="gio-hang.html" title="Giỏ hàng">
                                  <div class="cart_header_icon"></div>
                                  <div class="box_text">
-                                    <strong class="cart_header_count"><span>0</span></strong>
+                                    <strong class="cart_header_count"><span th:text = "${session.totalItems == null} ? '0' : ${session.totalItems}"></span></strong>
                                  </div>
                               </a>
                            </div>
@@ -292,10 +291,13 @@
                      <div class="homeslider">
                         <div id="owl-slider" class="owl-carousel owl-carousel-banner">
                            <div class="item">
-                              <a href="#"><img th:src="@{/assets/images/slide/so1.jpg}" alt="1"></a>
+                              <a href="#"><img th:src="@{/assets/images/slide/slide_1.jpg}" alt="1"></a>
                            </div>
                            <div class="item">
-                              <a href="#"><img th:src="@{/assets/images/slide/so2.jpg}" alt="1"></a>
+                              <a href="#"><img th:src="@{/assets/images/slide/slide_2.jpg}" alt="2"></a>
+                           </div>
+                           <div class="item">
+                              <a href="#"><img th:src="@{/assets/images/slide/slide_3.jpg}" alt="3"></a>
                            </div>
                          
                         </div>
@@ -406,7 +408,7 @@
                         <div class="row">
                            <div class="col-lg-7">
                               <div class="footer_address">
-                                 <p><span>Cửa hàng sách Y Khoa Huế</span></p>
+                                 <p><span>Cửa hàng sách Huế</span></p>
                                  <p><span>Địa chỉ: TP. Huế</span></p>
                                  <p><span>Số di động: 0908 77 00 95</span></p>
                                  <p><span>Email: choithugame1x@gmail.vn</span></p>

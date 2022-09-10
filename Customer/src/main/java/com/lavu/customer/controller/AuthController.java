@@ -36,15 +36,15 @@ public class AuthController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
-		 List<Category> categories = categoryService.getAllCategories();
-		 model.addAttribute("categories", categories);
+        model.addAttribute("categories", categoryService.getCategoriesByParentIsNull());
+
 		 model.addAttribute("title", "Đăng nhập");
 		 return "login";
 	}
 
 	@GetMapping("/register")
 	public String register(Model model) {
-        model.addAttribute("categories", categoryService.getCategoryByActive());
+        model.addAttribute("categories", categoryService.getCategoriesByParentIsNull());
         model.addAttribute("title", "Đăng ký");
 		model.addAttribute("customerDto", new CustomerDto());
 		return "register";

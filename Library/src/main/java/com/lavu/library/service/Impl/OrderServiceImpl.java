@@ -10,14 +10,17 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lavu.library.dto.ChartDto;
 import com.lavu.library.model.CartItem;
 import com.lavu.library.model.Order;
 import com.lavu.library.model.OrderDetail;
+import com.lavu.library.model.Product;
 import com.lavu.library.model.ShoppingCart;
 import com.lavu.library.model.enums.OrderStatus;
 import com.lavu.library.repository.CartItemRepository;
 import com.lavu.library.repository.OrderDetailRepository;
 import com.lavu.library.repository.OrderRepository;
+import com.lavu.library.repository.ProductRepository;
 import com.lavu.library.repository.ShoppingCartRepository;
 import com.lavu.library.service.EmailService;
 import com.lavu.library.service.OrderService;
@@ -35,6 +38,9 @@ public class OrderServiceImpl implements OrderService {
 	private CartItemRepository itemRepository;
 
 	@Autowired
+	private ProductRepository productRepository;
+	
+	@Autowired
 	private ShoppingCartRepository cartRepository;
 	
 	@Autowired
@@ -49,16 +55,23 @@ public class OrderServiceImpl implements OrderService {
 		order.setStatus(OrderStatus.PENDING);
 		order.setCustomer(cart.getCustomer());
 		order.setTotalPrice(cart.getTotalPrice());
+		
 		List<OrderDetail> orderDetails = new ArrayList<>();
+		
 		for (CartItem item : cart.getCartItem()) {
 			OrderDetail detail = new OrderDetail();
 			detail.setOrder(order);
 			detail.setQuantity(item.getQuantity());
-			detail.setProduct(item.getProduct());
-			detail.setTotalPrice(item.getQuantity()*item.getProduct().getPrice());
-			detail.setUnitPrice(item.getProduct().getPrice());
+			
+			Product product = productRepository.findById(item.getProduct().getId()).get();
+			product.setQuantity(product.getQuantity()-item.getQuantity());
+			
+			detail.setProduct(product);
+			detail.setTotalPrice(item.getTotalPrice());
+			detail.setUnitPrice(item.getUnitPrice());
 			detailRepository.save(detail);
 			orderDetails.add(detail);
+			
 			itemRepository.delete(item);
 		}
 		order.setOrderDetail(orderDetails);
@@ -126,4 +139,11 @@ public class OrderServiceImpl implements OrderService {
 	public Double getSum() {
 		return orderRepository.getSumOrder();
 	}
+	
+	
+	@Override
+	public List<ChartDto> getChartData(){
+		return orderRepository.getChartData();
+	}
+
 }

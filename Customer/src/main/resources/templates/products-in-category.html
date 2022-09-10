@@ -14,9 +14,45 @@
             <div class="main">
                <div class="container">
                   <div class="row">
-                     <div class="col-md-9">
                         <div class="breadcrumb clearfix" th:replace = "fragments :: breadcrumb">
                         </div>
+                      <div class="col-md-3">
+						<div class="menu-product">
+						   <h3>
+						      <span>
+						      	Danh mục
+						      </span>
+						   </h3>
+						   	<ul class='level0'>
+						   		<li class="child" th:each="category : ${categories}">
+						      	<span><a  th:href = "@{/product/category/{id}(id = ${category.id})}"><i class='fa fa-arrow-circle-right'></i>[[${category.name}]]</a></span><span class='open-close'><i class='fa fa-angle-down'></i></span>
+						      		<ul class='level1 hidden-xs' th:if="${#lists.size(category.children) > 0}">
+									   <li th:each="menu1 : ${category.children}">
+									   	<span><a th:href = "@{/product/category/{id}(id = ${menu1.id})}"><i class='fa fa-check'></i> [[${menu1.name}]]</a></span>
+									   </li>
+						   			</ul>
+						   		</li>
+						   </ul>
+						</div>
+						<script type="text/javascript">
+						   $(document).ready(function () {
+						       $('.menu-product li.child .open-close').on('click', function () {
+						           $(this).removeAttr('href');
+						           var element = $(this).parent('li');
+						           if (element.hasClass('open')) {
+						               element.removeClass('open');
+						               element.children('ul').slideUp();
+						           }
+						           else {
+						               element.addClass('open');
+						               element.children('ul').slideDown();
+						           }
+						       });
+						   });
+						</script> 
+                    </div>                 
+                     <div class="col-md-9">
+                       
                         <div class="product-content">
                            <h1 title="products" class="page_heading ">
                               [[${category.name}]]
@@ -65,68 +101,11 @@
                                  </div>
                               </div>
 
-                              <div class="icon-loading" style="display: none;">
-                                 <div class="uil-ring-css">
-                                    <div></div>
-                                 </div>
-                              </div>
+                   
                            </div>
-                           <div class="paginate">
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="pagination">
-                                 <div class="row">
-                                    <a class="next page_node" href="san-pham2679.html?page=1">
-                                    <i class="fa fa-angle-left"></i>
-                                    </a>
-                                    <span class="page_node  current">1</span>
-                                    <a class="page_node" href="san-pham4658.html?page=2">2</a>
-                                    <a class="next page_node" href="san-pham4658.html?page=2">
-                                    <i class="fa fa-angle-right"></i>
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
+            
                         </div>
                      </div>
-                     <div class="col-md-3">
-                        <div class="box-sale-policy ng-scope">
-                            <h3><span>Chính sách bán hàng</span></h3>
-                            <div class="sale-policy-block">
-                                <ul>
-                                    <li>Giao hàng TOÀN QUỐC</li>
-                                    <li>Thanh toán khi nhận hàng</li>
-                                    <li>Đổi trả trong <span>15 ngày</span></li>
-                                    <li>Hoàn ngay tiền mặt</li>
-                                    <li>Chất lượng đảm bảo</li>
-                                    <li>Miễn phí vận chuyển:<span>Đơn hàng từ 3 món trở lên</span></li>
-                                </ul>
-                            </div>
-                            <div class="buy-guide">
-                                <h3>Hướng Dẫn Mua Hàng</h3>
-                                <ul>
-                                    <li>
-                                        Mua hàng trực tiếp tại website
-                                        <b class="ng-binding"> http://www.nhasachyduochue.vn</b>
-                                    </li>
-                                    <li>
-                                        Gọi điện thoại <strong class="ng-binding">
-                                            077 2455 xxx
-                                        </strong> để mua hàng
-                                    </li>
-                                    <li>
-                                        Mua tại Trung tâm CSKH:<br>
-                                        <strong class="ng-binding">Ở đâu còn lâu mới nói</strong>
-                                        <a href="/ban-do.html" rel="nofollow" target="_blank">Xem Bản Đồ</a>
-                                    </li>
-                                    <li>
-                                        Mua sỉ/buôn xin gọi <strong class="ng-binding">
-                                            0908 xx xx xx
-                                        </strong> để được
-                                        hỗ trợ.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>  
-                    </div>
                      </div>
                   </div>
                </div>

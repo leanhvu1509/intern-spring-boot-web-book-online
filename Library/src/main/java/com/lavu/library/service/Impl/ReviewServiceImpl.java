@@ -34,4 +34,9 @@ public class ReviewServiceImpl implements ReviewService{
 	public List<Review> getReviewByCustomer(Long id){
 		return reviewRepository.getReviewByCustomer(id);
 	}
+	
+	@Override
+	public void deleteById(Long id) {
+		reviewRepository.deleteById(id);
+	}
 }

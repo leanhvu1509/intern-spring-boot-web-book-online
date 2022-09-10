@@ -1,5 +1,11 @@
 package com.lavu.library.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.lavu.library.model.Category;
 import com.lavu.library.model.enums.ProductStatus;
 
@@ -7,25 +13,39 @@ public class ProductDto {
 
 	private Long id;
 	
-
+	@NotEmpty(message = "Không được để trống")
+	@Size(min = 5, message = "Không được ít hơn 5 ký tự")
 	private String name;
 
+	@NotEmpty(message = "Không được để trống")
+	@Size(min = 3, message = "Không được ít hơn 3 ký tự")
 	private String author;
 
+	@NotEmpty(message = "Không được để trống")
 	private String publisher;
 
+	@NotNull(message = "Không được để trống")
+	@Min(value = 2000, message = "Năm xuất bản phải hơn 2000")
+	@Max(value = 2100, message = "Năm xuất bản nhỏ hơn 2100")
 	private int publishAt;
 
+	@NotNull(message = "Không được để trống")
 	private int price;
 	
-	
+	@NotNull(message = "Không được để trống")
 	private double discount;
 	
+	@NotNull(message = "Không được để trống")
+	@Min(value = 1, message = "Số lượng phải hơn 1")
 	private int quantity;
 	
+	@NotEmpty(message = "Không được để trống")
 	private String description;
+	
 	private Category category;
+	
 	private String image;
+	
 	private ProductStatus status;
 
 	public ProductDto() {

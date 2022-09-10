@@ -2,6 +2,7 @@ package com.lavu.library.service;
 
 import java.util.List;
 
+import com.lavu.library.dto.ChartDto;
 import com.lavu.library.model.Order;
 import com.lavu.library.model.OrderDetail;
 import com.lavu.library.model.ShoppingCart;
@@ -27,5 +28,8 @@ public interface OrderService {
 	List<Order> getAllByPendingStatus();
 
 	Double getSum();
+
+	List<ChartDto> getChartData();
+
 
 }

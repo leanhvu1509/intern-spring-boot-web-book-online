@@ -34,7 +34,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	/*
 	 * Customer Module
 	 */
-	@Query("SELECT p FROM Product p WHERE p.status = 0")
+	@Query("SELECT p FROM Product p WHERE p.status = 0 ORDER BY p.createdDate DESC")
 	List<Product> getAllProducts();
 	
 	
@@ -42,13 +42,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> getViewHomeProducts();
 
 
-    @Query(value = "SELECT * FROM products p INNER JOIN categories c ON c.category_id = p.category_id WHERE p.category_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM products p INNER JOIN categories c ON c.category_id = p.category_id WHERE p.category_id = ?1 ORDER BY RAND()\r\n" + 
+    		"LIMIT 3", nativeQuery = true)
     List<Product> getRelatedProducts(Long categoryId);
 
 
     @Query(value = "SELECT p FROM Product p INNER JOIN Category c ON c.id = p.category.id WHERE c.id = ?1")
     List<Product> getProductsInCategory(Long categoryId);
 
+    @Query(value = "SELECT p.* FROM products p join categories c on p.category_id=c.category_id where c.parent_id = ?1 or p.category_id = ?1",nativeQuery = true)
+    List<Product> getProductsWithCategory(Long categoryId);
 
     @Query("SELECT p FROM Product p WHERE p.status = 0 ORDER BY p.price DESC")
     List<Product> filterHighPrice();
@@ -57,13 +60,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.status = 0 ORDER BY p.price")
     List<Product> filterLowPrice();
     
+    @Query("SELECT new java.lang.Boolean(COUNT(p) > 0) FROM Product p WHERE p.quantity=0 AND p.id=?1")
+    Boolean checkQuantity(Long id);
+    
     @Query("SELECT p FROM Product p")
     Page<Product> pageProducts(Pageable pageable);
 
     @Query("SELECT p FROM Product p WHERE p.description like %?1% OR p.name like %?1%")
     Page<Product> searchPageProducts(String keyword, Pageable pageable);
 
-    @Query("SELECT p FROM Product p WHERE p.description like %?1% OR p.name like %?1%")
+    @Query("SELECT p FROM Product p WHERE p.name like %?1%")
     List<Product> searchProducts(String keyword);
 	
 }

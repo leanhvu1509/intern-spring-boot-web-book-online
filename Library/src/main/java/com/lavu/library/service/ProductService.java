@@ -48,4 +48,8 @@ public interface ProductService {
 
 	List<Product> getAllTopSell();
 
+	List<Product> searchView(String keyword);
+
+	Boolean checkQuantity(Long id);
+
 }

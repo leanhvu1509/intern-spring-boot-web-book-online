@@ -1,7 +1,8 @@
 package com.lavu.admin.controller;
 
 import java.security.Principal;
-import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lavu.library.dto.ProductDto;
-import com.lavu.library.model.Category;
 import com.lavu.library.model.Product;
 import com.lavu.library.model.enums.ProductStatus;
 import com.lavu.library.service.CategoryService;
@@ -39,29 +39,32 @@ public class ProductController {
         if(principal == null){
             return "redirect:/login";
         }
-        List<Product> products = productService.getAllProducts();
-        model.addAttribute("title", "Danh sách sản phẩm");
-        model.addAttribute("products", products);
         model.addAttribute("activeP", "active");
+        model.addAttribute("title", "Danh sách sản phẩm");
+        
+        model.addAttribute("products", productService.getAllProducts());
         return "products";
     }
 
     @GetMapping("/form")
     public String addProductForm(Model model){
-        List<Category> categories = categoryService.getCategoriesByParentIsNull();
+    	model.addAttribute("activeP", "active");
         model.addAttribute("title", "Thêm mới sản phẩm");
-        model.addAttribute("activeP", "active");
-        model.addAttribute("categories", categories);
+        
+        model.addAttribute("categories", categoryService.getCategoriesByParentIsNull());
         model.addAttribute("product", new ProductDto());
         return "product_form";
     }
 
     @PostMapping("/save")
-    public String saveProduct(@ModelAttribute("product")ProductDto productDto,
+    public String saveProduct(@Valid @ModelAttribute("product")ProductDto productDto,
     							BindingResult result,
                               @RequestParam("imageProduct")MultipartFile imageProduct,
                               RedirectAttributes attributes){
         try {
+        	if(result.hasErrors()) {
+        		return "product_form";
+        	}
             productService.createProduct(imageProduct, productDto);
             attributes.addFlashAttribute("success", "Thêm mới thành công");
         }catch (Exception e){
@@ -73,11 +76,11 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String updateProductForm(@PathVariable("id") Long id, Model model){
+    	model.addAttribute("activeP", "active");
         model.addAttribute("title", "Chi tiết sản phẩm");
-        List<Category> categories = categoryService.getCategoryByActive();
-        ProductDto productDto = productService.getById(id);
-        model.addAttribute("categories", categories);
-        model.addAttribute("productDto", productDto);
+        
+        model.addAttribute("categories", categoryService.getCategoryByActive());
+        model.addAttribute("productDto", productService.getById(id));
         return "product_detail";
     }
     
@@ -125,8 +128,7 @@ public class ProductController {
     	if(principal == null){
             return "redirect:/login";
         }
-    	List<Product> list = productService.getAllTopSell();
-    	model.addAttribute("list", list);
+    	model.addAttribute("list", productService.getAllTopSell());
     	return "top-sell";
     }
 }

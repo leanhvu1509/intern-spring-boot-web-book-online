@@ -23,7 +23,7 @@ public class OrderDetail {
 	private Long id;
 	
 	private int quantity;
-	
+		
 	private double totalPrice;
 	
 	private double unitPrice;

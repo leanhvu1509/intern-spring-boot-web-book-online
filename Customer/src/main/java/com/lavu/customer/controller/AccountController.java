@@ -49,7 +49,7 @@ public class AccountController {
 		Customer customer = customerService.findByUsername(username);
 		model.addAttribute("customer", customer);
 		model.addAttribute("title", "Thông tin tài khoản");
-        model.addAttribute("categories", categoryService.getCategoryByActive());
+        model.addAttribute("categories", categoryService.getCategoriesByParentIsNull());
 		return "account-infor";
 	}
 
@@ -69,7 +69,7 @@ public class AccountController {
 	@RequestMapping(value = "/forgot", method = RequestMethod.GET)
 	public String displayForgotPasswordPage(Model model) {
 		model.addAttribute("title", "Quên mật khẩu");
-        model.addAttribute("categories", categoryService.getCategoryByActive());
+        model.addAttribute("categories", categoryService.getCategoriesByParentIsNull());
 		return "forgot-password";
 	}
 
@@ -107,7 +107,7 @@ public class AccountController {
 			model.addAttribute("error", "Lỗi! Server");
 		}
 		model.addAttribute("title", "Mật khẩu mới");
-        model.addAttribute("categories", categoryService.getCategoryByActive());
+        model.addAttribute("categories", categoryService.getCategoriesByParentIsNull());
 		return "reset-password";
 	}
 

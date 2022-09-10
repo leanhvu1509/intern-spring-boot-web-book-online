@@ -43,8 +43,9 @@ public class HomeController {
             session.removeAttribute("username");
         }
         model.addAttribute("categories", categoryService.getCategoriesByParentIsNull());
-        //model.addAttribute("categories", categoryService.getCategoryByActive());
         model.addAttribute("products", productService.listViewProducts());
+		model.addAttribute("productsTopSell", productService.getProductTopSell());
+
         model.addAttribute("title", "Trang chủ");
         return "index";
     }

@@ -1,7 +1,6 @@
 package com.lavu.admin.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -33,8 +32,7 @@ public class CategoryController {
         }
         model.addAttribute("activeCa", "active");
 		model.addAttribute("title", "Danh sách các danh mục");
-		List<Category> categories = categoryService.getAllCategories();
-		model.addAttribute("categories", categories);
+		model.addAttribute("categories", categoryService.getAllCategories());
 		model.addAttribute("categoriesParent", categoryService.getCategoriesByParentIsNull());
 		model.addAttribute("newCategory", new Category());
 		return "categories";

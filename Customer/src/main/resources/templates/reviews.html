@@ -57,6 +57,11 @@
                                          	<span th:text="${review.datePost}"></span>
                                       	</td>
                                       	<td class="">
+	                                      	<div class="rateyo" 
+	                                    		data-rateyo-half-star="true" 
+	                                    		data-rateyo-read-only="true" 
+	                                    		data-rateyo-num-stars="5"
+	                                    		th:attr="data-rateyo-rating=${review.number}" th:title="${review.number}"></div>
                                       		<span class="badge" th:text="${review.number}"></span>
                                       	</td>
                                       	<td class="amount">

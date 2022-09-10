@@ -31,7 +31,6 @@ public class StorageServiceImpl implements StorageService {
 	public void init() {
 		try {
 			Files.createDirectories(rootLocation);
-			System.out.println(rootLocation.toString());
 		} catch (Exception e) {
 			throw new ErrorMessage("Could not initialize store", e);
 		}

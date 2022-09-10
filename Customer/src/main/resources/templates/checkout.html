@@ -25,7 +25,6 @@
                      <div class="col-md-8 col-sm-12 col-xs-12 payment-step step2">
                         <form method="get" th:object="${customer}" th:action="@{/save-order}">
                            <h4  style="margin-top: 0;padding: 10px;background-color: #0f9ed8;font-size: 14px;text-transform: uppercase;color: #ffffff;margin-bottom: 20px;">Thông tin giao nhận hàng</h4>
-                           <a style="font-style: italic;" th:href="@{/account}">Cập nhật thông tin giao hàng ở đây</a>
                            <div class="step-preview clearfix">
                               <div class="form-block form-group">
                                  <div class="form-group">
@@ -34,11 +33,11 @@
                                  </div>
                                  <div class="form-group">
                                  	<label>Địa chỉ:</label>
-                                    <input class="form-control " placeholder="Nhập địa chỉ" type="text"  th:field = "*{address}">
+                                    <input class="form-control " placeholder="Nhập địa chỉ" type="text"  name="address">
                                  </div>
                                  <div class="form-group">
                                     <label>Điện thoại:</label>
-                                    <input class="form-control " placeholder="Nhập số điện thoại" type="tel" th:field = "*{phone}">
+                                    <input class="form-control " placeholder="Nhập số điện thoại" type="tel" name="phone">
                                  </div>
                               </div>
                            </div>

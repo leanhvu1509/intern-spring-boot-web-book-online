@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+   <head th:replace = "fragments :: head">
+   </head>
+   <body style="" cz-shortcut-listen="true">
+      <div class="loader_overlay"></div>
+      <div id="opacity" class=""></div>
+      <div id="fb-root"></div>
+      <div class="wrapper">
+        <!-- HEADER -->
+         <div class="header" th:replace = "fragments :: header">
+         </div>
+         <!-- END HEADER -->
+        
+         <!-- Main -->
+         <div id="collection">
+            <div class="main">
+               <div class="container">
+                  <div class="row">
+                        <div class="breadcrumb clearfix">
+                        <ul>
+                           <li class="home">
+                              <a title="Đến trang chủ" th:href="@{/trang-chu}" itemprop="url"><span itemprop="title">Trang chủ</span></a>
+                           </li>
+                           <li class="icon-li"><strong>Tìm kiếm</strong></li>
+                        </ul>
+                        </div>
+                      <div class="col-md-3">
+						<div class="menu-product">
+						   <h3>
+						      <span>
+						      	Danh mục
+						      </span>
+						   </h3>
+						   	<ul class='level0'>
+						   		<li class="child" th:each="category : ${categories}">
+						      	<span><a  th:href = "@{/product/category/{id}(id = ${category.id})}"><i class='fa fa-arrow-circle-right'></i>[[${category.name}]]</a></span><span class='open-close'><i class='fa fa-angle-down'></i></span>
+						      		<ul class='level1 hidden-xs' th:if="${#lists.size(category.children) > 0}">
+									   <li th:each="menu1 : ${category.children}">
+									   	<span><a th:href = "@{/product/category/{id}(id = ${menu1.id})}"><i class='fa fa-check'></i> [[${menu1.name}]]</a></span>
+									   </li>
+						   			</ul>
+						   		</li>
+						   </ul>
+						</div>
+						<script type="text/javascript">
+						   $(document).ready(function () {
+						       $('.menu-product li.child .open-close').on('click', function () {
+						           $(this).removeAttr('href');
+						           var element = $(this).parent('li');
+						           if (element.hasClass('open')) {
+						               element.removeClass('open');
+						               element.children('ul').slideUp();
+						           }
+						           else {
+						               element.addClass('open');
+						               element.children('ul').slideDown();
+						           }
+						       });
+						   });
+						</script> 
+                    </div>                 
+                     <div class="col-md-9">
+ 							<h3>
+						      <span>
+						      	[[${title}]]
+						      </span>
+						   </h3>
+                        <script type="text/javascript">
+                           $(".link-site-more").hover(function () { $(this).find(".s-c-n").show(); }, function () { $(this).find(".s-c-n").hide(); });
+                        </script>
+                        <div class="product-content">
+                           <h1 title="products" class="page_heading ">
+                           </h1>
+                           <div class="sortPagibar m-b-15 clearfix">
+                              <div class="pull-left">
+                                 <div class="collection_view">
+                           
+                                 </div>
+                              </div>
+                              <div class="pull-right">
+                                 <div class="browse-tags">
+                                    <span class="sort-view">Sắp xếp:</span>
+                                    <span class="custom-dropdown custom-dropdown--white">
+                                       <select class="selectProductSort sort-by custom-dropdown__select custom-dropdown__select--white" id="lbsort" onchange="window.location.href = this.options[this.selectedIndex].value">
+                                          <option selected="selected" value="?sort=index&amp;order=asc">Mặc định</option>
+                                          <option value="http://localhost:8020/product/high-price">Gi&#225; giảm dần</option>
+                                          <option value="http://localhost:8020/product/low-price">Gi&#225; tăng dần</option>
+                                       </select>
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="product_list grid clearfix">
+                              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 product-wrapper zoomIn wow" th:each="product : ${products}">
+                                 <div class="product-block product-resize m-b-20">
+                                    <div class="product-image image-resize">
+                                       <a th:href="@{/product/{id}(id = ${product.id})}">
+                                       <img class="first-img" th:src="@{'data:image/jpeg;base64,' + ${product.image}}">
+                                       </a>
+                                       <div class="product-actions hidden-xs">
+                                          <div class="btn-add-to-cart">
+                                             <a th:href="@{/add-to-cart/{id}(id=${product.id})}"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                          </div>
+                                          <div class="btn_quickview">
+                                             <a class="quickview" href=""><i class="fa fa-eye"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="product-info text-center m-t-xxs-20">
+                                       <h3 class="pro-name">
+                                          <a th:href="@{/product/{id}(id = ${product.id})} " th:text="${product.name}"></a>
+                                       </h3>
+                                       <div class="pro-prices">
+                                         <span class="pro-price" th:text="${#numbers.formatDecimal(product.price,3,'POINT',0,'COMMA')}+'&nbsp;₫'"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+                      
+                           </div>
+                       
+                        </div>
+                     </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--End Main  -->
+         
+         <!-- ADV -->
+         <div class="adv" th:replace = "fragments :: adv">
+         </div>
+         <!-- END ADV -->
+         <!-- FOOTER -->
+         <div class="footer" th:replace = "fragments :: footer">
+         </div>
+         <!-- END FOOTER -->
+      <!-- Loader -->
+      <div style="display: none;" id="loading-mask" th:replace = "fragments :: loader">
+      </div>
+      <!-- End loader -->
+      <a href="javascript:void(0);" class="back-to-top"><span>Top</span></a>
+   </body>  
+  <script type="text/javascript">
+    $(".header-content").css({ "background": '' });
+    $("html").addClass('');
+    $(".menu-quick-select ul").hide();
+    $(".menu-quick-select").hover(function () { $(".menu-quick-select ul").show(); }, function () { $(".menu-quick-select ul").hide(); });
+ </script>
+</html>

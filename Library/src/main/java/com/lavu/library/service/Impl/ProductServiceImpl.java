@@ -42,11 +42,11 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findById(id).get();
 	}
 
-    @Override
+	@Override
 	public ProductDto getById(Long id) {
-        Product product = productRepository.findById(id).get();
-        ProductDto productDto = new ProductDto();
-        productDto.setId(product.getId());
+		Product product = productRepository.findById(id).get();
+		ProductDto productDto = new ProductDto();
+		productDto.setId(product.getId());
 		productDto.setName(product.getName());
 		productDto.setAuthor(product.getAuthor());
 		productDto.setPublisher(product.getPublisher());
@@ -58,9 +58,9 @@ public class ProductServiceImpl implements ProductService {
 		productDto.setDiscount(product.getDiscount());
 		productDto.setImage(product.getImage());
 		productDto.setStatus(product.getStatus());
-        return productDto;
-    }
-	
+		return productDto;
+	}
+
 	// Tạo mới
 	@Override
 	public Product createProduct(MultipartFile imageProduct, ProductDto dto) {
@@ -69,9 +69,7 @@ public class ProductServiceImpl implements ProductService {
 			if (imageProduct == null) {
 				entity.setImage(null);
 			} else {
-				if (imageUpload.uploadImage(imageProduct)) {
-					System.out.println("Upload successfully");
-				}
+				imageUpload.uploadImage(imageProduct);
 				entity.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
 			}
 			entity.setName(dto.getName());
@@ -98,12 +96,12 @@ public class ProductServiceImpl implements ProductService {
 			Product entity = productRepository.findById(dto.getId()).get();
 			if (imageProduct == null) {
 				entity.setImage(entity.getImage());
-			} else {
-				if (imageUpload.checkExisted(imageProduct) == false) {
-					imageUpload.uploadImage(imageProduct);
-				}
+			}
+			if (imageUpload.checkExisted(imageProduct) == false) {
+				imageUpload.uploadImage(imageProduct);
 				entity.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
 			}
+
 			entity.setName(dto.getName());
 			entity.setAuthor(dto.getAuthor());
 			entity.setPublisher(dto.getPublisher());
@@ -123,7 +121,10 @@ public class ProductServiceImpl implements ProductService {
 	// Xóa
 	@Override
 	public void deleteProductById(Long id) {
-		productRepository.deleteById(id);
+		Product product = productRepository.findById(id).get();
+		product.setStatus(ProductStatus.DELETE);
+		productRepository.save(product);
+
 	}
 
 	// Enable
@@ -163,7 +164,7 @@ public class ProductServiceImpl implements ProductService {
 	// Lấy danh sách theo danh mục
 	@Override
 	public List<Product> getProductsInCategory(Long categoryId) {
-		return productRepository.getProductsInCategory(categoryId);
+		return productRepository.getProductsWithCategory(categoryId);
 	}
 
 	// Sắp xếp giảm
@@ -199,20 +200,30 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
+	public List<Product> searchView(String keyword){
+		return productRepository.searchProducts(keyword);
+	}
+	
+	@Override
 	public long getCountProduct() {
 		return productRepository.getCountProduct();
 	}
 
 	@Override
-	public List<Product> getProductTopSell(){
+	public List<Product> getProductTopSell() {
 		return productRepository.getProductTopSell();
 	}
-	
-	
+
 	@Override
-	public List<Product> getAllTopSell(){
+	public List<Product> getAllTopSell() {
 		return productRepository.getAllTopSell();
 	}
+	
+	@Override
+	public Boolean checkQuantity(Long id) {
+		return productRepository.checkQuantity(id);
+	}
+
 	/*
 	 * private
 	 */

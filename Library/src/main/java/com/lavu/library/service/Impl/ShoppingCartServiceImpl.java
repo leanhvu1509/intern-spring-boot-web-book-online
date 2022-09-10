@@ -38,7 +38,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			if (cartItem == null) {
 				cartItem = new CartItem();
 				cartItem.setProduct(product);
-				cartItem.setTotalPrice(quantity * product.getPrice());
+				cartItem.setTotalPrice(quantity * (product.getPrice()-product.getPrice()*product.getDiscount()/100));
+				cartItem.setUnitPrice(product.getPrice()-product.getPrice()*product.getDiscount()/100);
 				cartItem.setQuantity(quantity);
 				cartItem.setCart(cart);
 				cartItems.add(cartItem);
@@ -48,14 +49,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			if (cartItem == null) {
 				cartItem = new CartItem();
 				cartItem.setProduct(product);
-				cartItem.setTotalPrice(quantity * product.getPrice());
+				cartItem.setTotalPrice(quantity * (product.getPrice()-product.getPrice()*product.getDiscount()/100));
+				cartItem.setUnitPrice(product.getPrice()-product.getPrice()*product.getDiscount()/100);
 				cartItem.setQuantity(quantity);
 				cartItem.setCart(cart);
 				cartItems.add(cartItem);
 				itemRepository.save(cartItem);
 			} else {
 				cartItem.setQuantity(cartItem.getQuantity() + quantity);
-				cartItem.setTotalPrice(cartItem.getTotalPrice() + (quantity * product.getPrice()));
+				cartItem.setTotalPrice(cartItem.getTotalPrice() + (quantity * (product.getPrice()-product.getPrice()*product.getDiscount()/100)));
 				itemRepository.save(cartItem);
 			}
 		}
@@ -81,7 +83,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		CartItem item = findCartItem(cartItems, product.getId());
 
 		item.setQuantity(quantity);
-		item.setTotalPrice(quantity * product.getPrice());
+		item.setTotalPrice(quantity * (product.getPrice()-product.getPrice()*product.getDiscount()/100));
 
 		itemRepository.save(item);
 
